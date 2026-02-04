@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/cover/small-logo.png">
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/news-style.css" />
+  <link rel="stylesheet" href="/adaptation.css" />
+  <title><%= news.title %></title>
+</head>
+<body>
+
+  <header>
+        <div class="logo-name">
+            <a href="/"><h1>СМУ «Альфа»</h1></a>
+        </div>
+        <nav class="header-links">
+            <a class="link-btn" href="#service-zone">Услуги</a>
+            <a class="link-btn" href="#works-zone">Галерея</a>
+            <a class="link-btn" href="#price-zone">Прайс</a>
+            <a class="link-btn" href="/news">Новости</a>
+            <a class="connect-btn" href="#contact-zone">Связаться</a>
+        </nav>
+    </header>
+
+  <article class="full-news">
+    <div class="wrapper-title">
+      <h1><%= news.title %></h1>
+      <p><strong><%= news.date %></strong></p>
+      <p><%= news.content %></p>
+    </div>
+      <!-- Галерея всех фото -->
+    <div class="news-gallery">
+      <%
+        let images = [];
+        try {
+          // Пытаемся распарсить как JSON-массив
+          images = JSON.parse(news.image);
+          if (!Array.isArray(images)) {
+            images = [news.image];
+          }
+        } catch (e) {
+          // Если ошибка — значит, это просто строка-путь
+          images = [news.image];
+        }
+
+        // Показываем все фото
+        images.forEach(img => {
+          if (img) { // проверка на пустое значение
+      %>
+        <div class="gallery-item" style="margin: 15px 0;">
+          <img src="<%= img %>" 
+              alt="Фото новости" 
+              style="width: 100%; max-width: 600px; height: auto; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);"
+              onerror="this.onerror=null; this.src='https://via.placeholder.com/600x400?text=Фото+недоступно'">
+        </div>
+      <% }}); %>
+
+      <!-- Если фото нет вообще -->
+      <% if (images.length === 0 || (images.length === 1 && !images[0])) { %>
+        <div class="gallery-item">
+          <img src="https://via.placeholder.com/600x400?text=Нет+фото" 
+              alt="Нет фото" 
+              style="width: 100%; max-width: 600px; border-radius: 12px;">
+        </div>
+      <% } %>
+    </div>
+    <a href="/news">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><title>Arrow-back SVG Icon</title><path fill="currentColor" d="M21 11H6.414l5.293-5.293l-1.414-1.414L2.586 12l7.707 7.707l1.414-1.414L6.414 13H21z"/></svg>
+      Назад к новостям</a>
+  </article>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новости</title>
+    <link rel="icon" href="/cover/small-logo.png">
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="/news-style.css" />
+    <link rel="stylesheet" href="public/adaptation.css" />
+</head>
+<body>
+
+    <header>
+        <div class="logo-name">
+            <a href="/"><h1>СМУ «Альфа»</h1></a>
+        </div>
+        <nav class="header-links">
+            <a class="link-btn" href="#service-zone">Услуги</a>
+            <a class="link-btn" href="#works-zone">Галерея</a>
+            <a class="link-btn" href="#price-zone">Прайс</a>
+            <a class="link-btn" href="/news">Новости</a>
+            <a class="connect-btn" href="#contact-zone">Связаться</a>
+        </nav>
+    </header>
+
+    <div class="news-wrapper">
+        <div class="news-zone-title">
+            <h3>Новости</h3>
+        </div>   
+        <div class="news-zone">
+
+            <% Object.keys(newsData).forEach(id => { 
+            const n = newsData[id]; 
+            try {
+             
+                images = JSON.parse(n.image);
+                if (!Array.isArray(images)) {
+               
+                images = [n.image];
+                }
+            } catch (e) {
+                // Если ошибка (обычная строка вроде "/uploads/...") — делаем массив из неё
+                images = [n.image];
+            }
+            const previewImage = images[0]
+            %>
+
+                <div class="news-block">
+                    <div class="image" style="background-image: url('<%= previewImage %>');">
+                        <!-- <img src="<%= previewImage %>" alt="<%= n.title %>"> -->
+
+                    </div>
+                    <div class="main-info-news">
+                        <h2 class="title-news"><%= n.title %></h2>
+                        <p><%= n.preview %></p>
+                        <small><%= n.date %></small><br>
+                        <a href="/new/<%= id %>">
+                            <button class="btn-more">Читать далее</button>
+                        </a>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,137 @@
+html {scroll-behavior: smooth;}
+
+*{
+    padding: 0;
+    margin: 0;
+    font-family: "Open Sans", sans-serif;
+}
+
+button{
+    border: none;
+    cursor: pointer;
+}
+
+p, ul{color: #575c68;}
+
+li::marker {color: oklch(0.646 0.222 41.116);}
+
+body{
+    width: 100%;
+}
+
+.news-wrapper{
+    padding: 10vh 5% 0 5%;
+    
+}
+
+.news-zone-title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    padding-bottom: 3vh;
+}
+
+.news-zone{
+    display: flex;
+    flex-flow: column-reverse;
+    align-items: center;
+    justify-content: center;
+    gap: 5vh;
+}
+
+.news-block{
+    height: 45vh;
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 3vh;
+    border: 2px solid oklch(0.646 0.222 41.116);
+    padding: 2vh;
+    border-radius: 25px;
+}
+
+.image{
+    width: 45vh;
+    height: 45vh;
+    overflow: hidden;
+    background-position: center;
+    background-size: cover;
+    border-radius: 25px;
+}
+
+.image img{
+    width: 100%;
+    height: auto;
+}
+
+.main-info-news{
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
+}
+
+.title-news{
+    font-size: 32px;
+}
+
+.btn-more{
+    width: 15vh;
+    padding: 1vh;
+    border-radius: 15px;
+    background-color: oklch(0.646 0.222 41.116);
+    color: white;
+    font-weight: 600;
+
+    transition-duration: .3s;
+}
+
+.btn-more:hover{
+    background-color: oklch(69.668% 0.19587 40.78);
+}
+
+/* СТРАНИЦЫ NEW */
+
+.full-news{
+    padding: 10vh 5%;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3vh;
+}
+
+.wrapper-title{
+    width: 50%;
+    display: flex;
+    flex-flow: column;
+    gap: 1vh;
+}
+
+.photo-new{
+    border-radius: 35px;
+    background-position: center;
+    background-size: cover;
+}
+
+.full-news a{
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5vh;
+    color: #575c68;
+
+    transition-duration: .3s;
+}
+
+.full-news a:hover{
+    color: oklch(0.646 0.222 41.116);
+}
+
+.photo-new{
+    width: 70vh;
+    height: 70vh;
+}

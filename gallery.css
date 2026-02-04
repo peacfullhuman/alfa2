@@ -1,0 +1,80 @@
+.dark {
+    background: rgba(102, 102, 102, 0.5);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+
+    align-items: center;
+    justify-content: center;
+
+    display: none;
+}
+
+/* .dark:target {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} */
+
+.gallery{
+    background-color: white;
+    width: 40%;
+    height: 93%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 15px;
+    padding-bottom: 2vh;
+}
+
+.header-gal-block{
+    color: rgb(53, 53, 53);
+    display: flex;
+    padding: 1vh 2vh;
+    align-items: center;
+    justify-content: end;
+}
+
+.close-gal{
+    background: none;
+}
+
+.header-gal-block a {
+    color: rgb(255, 255, 255);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition-duration: .5s;
+}
+
+.header-gal-block a:hover{
+    background-color: rgb(119, 119, 119);
+}
+
+.header-gal-block a:focus .dark{
+    display: none;
+}
+
+.main-gal{
+    overflow: scroll;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.photo{
+
+    background-image: url("images/electrical-installation.jpg");
+    width: 48%;
+    height: 49%;
+    overflow: hidden;
+    background-size: cover;
+    border-radius: 20px;
+    margin: 1%;
+}

@@ -1,0 +1,256 @@
+@media (max-width: 768px) {
+    .container{
+        max-width: 100%;
+    }
+
+    header{
+        max-width: 100%;
+    }
+
+    .header-links{
+        display: none;
+    }
+
+    .sub-menu-btn{
+        display: block;
+    }
+
+    .main-info h1{
+        font-size: 2rem;
+    }
+
+    .main-info h2{
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    .wellcome-btns{
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .wellcome-btns a{
+        text-align: center;
+    }
+
+    .merits{
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .merit svg{
+        width: 2rem;
+        height: 2rem;
+    }
+
+    /* НАШИ УСЛУГИ */
+
+    .logo-name h2{
+        font-size: 5vh;
+        text-align: center;
+    }
+
+    .services-card-wrapper{
+        width: 100%;
+    }
+
+    .info-card h3{
+        font-size: 20px;
+    }
+
+    .sub-service-info{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .more-info-title h2{
+        text-align: center;
+    }
+
+    .more-info-main{
+        padding: 0 2%;
+        gap: 1vh;
+    }
+
+    .title-info-main{
+        display: flex;
+        align-items: end;
+        justify-content: start;
+    }
+
+    .title-info-main h3{
+        font-size: 12px;
+    }
+
+    .works-gallery{
+        gap: 1vh;
+    }
+
+    .line-photos{
+        gap: 1vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .photos{
+        width: 100%;
+        height: 35vh;
+    }
+
+    .text-block{
+        background: linear-gradient(to top, black, rgba(0, 0, 0, .01));
+        border-radius: 3vh;
+        height: 35vh;
+        height: 10vh;
+        padding: 1.5vh;
+        font-size: 10px;
+
+        display: flex;
+        align-items: end;
+        justify-content: start;
+    }
+
+    .gallery{
+        width: 95%;
+        height: 80%;
+    }
+
+    .main-gal{
+        /* gap: 1%; */
+    }
+
+    .photo{
+        width: 48%;
+        height: 40%;
+    }
+
+    /* новости */
+
+    .new-ind{
+        padding: 1vh;
+        width: 95%;
+        height: 12vh;
+    }
+
+    .news-ind-block{
+        gap: 3vh;
+    }
+
+    .image-new{
+        height: 12vh;
+        width: 15vh;
+        /* display: none; */
+    }
+
+    .new-ind-info{
+        width: 100%;
+    }
+
+    .new-ind-info h3{
+        padding: 0;
+        font-size: 16px;
+    }
+
+    .sub-new-info p{
+        font-size: 12px;
+    }
+
+    .sub-new-info a button{
+        font-size: 12px;
+    }
+    
+
+    /* РАСЦЕНКИ НА РАБОТЫ */
+
+    .price-block{
+        width: 100%;
+    }
+
+    .price-title h2{
+        font-size: 3vh;
+    }
+
+    .main-contacts-block{
+        flex-direction: column;
+    }
+
+    .block-info{
+        padding: 3vh 2vh;
+    }
+
+    .line-price p{
+        font-size: 12px;
+        max-width: 30vh;
+    }
+
+    .contacts-info{
+        width: 100%;
+    }
+
+    .response-window{
+        width: 90%;
+        padding: 5%;
+    }
+
+    .response-window h3{
+        font-size: 3vh;
+    }
+
+    /* БОТТОМ */
+
+    .main-bottom{
+        flex-direction: column;
+        gap: 5vh;
+    }
+
+    .bottom-title{
+        max-width: 75%;
+    }
+
+    .bot-block ul li{
+        line-height: 4vh;
+    }
+
+    .sub-bottom{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 3vh;
+    }
+
+    .news-block {
+        flex-flow: column;
+        align-items: center;
+        justify-content: space-between;
+        height: 65vh;
+        width: 90%;
+    }
+
+    .main-info-news{
+        width: 100%;
+        height: 50%;
+        display: flex;
+        flex-flow: column;
+        justify-content: end;
+    }
+
+    .image{
+        width: 100%;
+        /* height: 75vh; */
+    }
+
+    .title-news{
+        font-size: 20px;
+    }
+
+    /* Страница NEW */
+
+    .wrapper-title{
+        width: 100%;
+    }
+
+    .photo-new{
+        width: 40vh;
+        height: 40vh;
+    }
+}
