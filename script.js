@@ -51,7 +51,6 @@ fetch('/files')
       // ДОБАВЛЯЕМ В ГАЛЕРЕЮ, 
     for (const [folder, imgs] of Object.entries(grouped)) { 
       imgs.forEach(img => {
-        console.log(img.split('/')[2])
         if (img.split('/')[2] === 'news'){
           return
         }
@@ -65,6 +64,7 @@ fetch('/files')
         ph.style.backgroundPosition = 'center'
         document.getElementById(`${mainName}`).appendChild(ph) //ВСЕ ДОБОВЛЯЕТ ПО ГАЛЕРЕЯМ
       });
+      
     }
 
 
@@ -133,7 +133,10 @@ fetch('/data-news')
 // Получаем элементы
 const modal = document.getElementById("modal");
 const modalContent = document.getElementById("main-content");
-const closeBtn = document.querySelector(".close");
+// const closeBtn = document.querySelector(".close");
+const closeBtn = document.getElementById("clbtn");
+
+console.log(closeBtn)
 
 // Все кнопки с информацией
 const infoButtons = document.querySelectorAll(".photo-info");
@@ -143,8 +146,7 @@ infoButtons.forEach(button => {
   button.addEventListener("click", function () {
     // const id = this.id;
     Object.keys(ContentList).forEach(item => {
-      console.log(button.id)
-      console.log(item)
+
       if (button.id === item){
         modalContent.innerHTML = ContentList[item]
       }
@@ -157,8 +159,9 @@ infoButtons.forEach(button => {
 
 // Закрытие по крестику
 closeBtn.addEventListener("click", () => {
-  modal.style.display = "none";
-  document.body.style.overflow = ""; // Возвращаем прокрутку
+    console.log(123)
+    modal.style.display = "none";
+    document.body.style.overflow = ""; // Возвращаем прокрутку
 });
 
 // Закрытие по клику вне окна

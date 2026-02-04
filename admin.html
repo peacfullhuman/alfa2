@@ -73,38 +73,49 @@
       </div>
   </div>
 
-    <div class="fullscreen-block news-adm-blocb" id="new">
-<!-- add-news.html -->
-      <form action="/add-news" method="POST" enctype="multipart/form-data">
+
+  <!-- НОВОСТИ -->
+  <div class="fullscreen-block news-adm-blocb" id="new">
+    <!-- add-news.html -->
+    <form action="/add-news" method="POST" enctype="multipart/form-data">
 
         <!-- Скрытое поле: класс загрузки -->
-        <input type="hidden" name="class" value="news">
+      <input type="hidden" name="class" value="news">
 
-        <label>Заголовок:<br>
-          <input type="text" name="title" required>
-        </label><br><br>
+      <label>Заголовок:<br>
+        <input type="text" name="title" required>
+      </label><br><br>
 
-        <label>Анонс:<br>
-          <textarea name="preview" rows="3" required></textarea>
-        </label><br><br>
+      <label>Анонс:<br>
+        <textarea name="preview" rows="3" required></textarea>
+      </label><br><br>
 
-        <label>Полный текст:<br>
-          <textarea name="content" rows="6" required></textarea>
-        </label><br><br>
+      <label>Полный текст:<br>
+        <textarea name="content" rows="6" required></textarea>
+      </label><br><br>
 
         <!-- Множественная загрузка фото -->
-        <label>Фото (несколько):<br>
-          <input type="file" name="images" accept="image/*" multiple required>
-        </label><br><br>
+      <label>Фото (несколько):<br>
+        <input type="file" name="images" accept="image/*" multiple required>
+      </label><br><br>
 
-        <label>Дата:<br>
-          <input type="date" name="date" required>
-        </label><br><br>
+      <label>Дата:<br>
+        <input type="date" name="date" required>
+      </label><br><br>
 
-        <button type="submit">Добавить новость</button>
-      </form>
+      <button type="submit">Добавить новость</button>
+    </form>
 
+
+    <div class="all-news">
+      <h3>Список новостей</h3>
+      <div class="news-list">
+
+      </div>
     </div>
+  </div>
+
+
 
   <!-- <script>
     const CORRECT_PASSWORD = '12345';
@@ -204,6 +215,6 @@
         container.innerHTML = '<p>❌ Не удалось загрузить файлы</p>';
       });
   </script> -->
-<script src="adm-script.js"></script>
 </body>
+<script src="adm-script.js"></script>
 </html>

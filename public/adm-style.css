@@ -68,14 +68,43 @@
 }
 
 form{
-    padding: 3vh 0;
-    display: flex;
-    flex-flow: column;
-    gap: 3vh;
+  padding: 3vh 0;
+  display: flex;
+  flex-flow: column;
+  gap: 3vh;
 }
 
 form button{
-    font-size: 16px;
-    padding: 1vh;
-    border:1px solid #333;
+  font-size: 16px;
+  padding: 1vh;
+  border:1px solid #333;
+}
+
+.all-news{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-flow: column;
+}
+
+.news-list{
+  width: 90%;
+  display: flex;
+  align-items: center;
+  flex-flow: column;
+  padding: 3vh;
+  gap: 3vh;
+}
+
+.new-adm{
+  border: 1px solid gray;
+  padding: 1vh;
+  border-radius: 15px;
+}
+
+.new-title-adm{
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
 }

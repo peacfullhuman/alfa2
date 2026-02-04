@@ -10,6 +10,7 @@ const PORT = 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('.'));
 
+app.use(express.json());
 
 // Подключаем статику
 app.use(express.static('public'));
@@ -20,6 +21,86 @@ const db = new sqlite3.Database('respons.db');
 // Настройки против блокировок
 db.exec("PRAGMA journal_mode = WAL;");
 db.configure('busyTimeout', 5000);
+
+app.post('/delete', (req, res) => {
+  const { path: filePath } = req.body;
+
+  if (!filePath) {
+    return res.status(400).json({ success: false, message: 'Путь к файлу не указан' });
+  }
+
+  // Собираем полный путь (пример: если файлы в папке "public/files")
+  const fullPath = path.join(__dirname, filePath);
+
+  // Удаляем файл
+  fs.unlink(fullPath, (err) => {
+    if (err) {
+      console.error('Ошибка удаления файла:', err);
+      return res.status(500).json({ success: false, message: 'Не удалось удалить файл' });
+    }
+    res.json({ success: true, message: 'Файл успешно удалён' });
+  });
+});
+
+// app.post('/delete-news', (req, res) => {
+//   console.log('req.body:', req.body)
+//   const { id } = req.body;
+
+//   if (typeof id !== 'number' || id < 0) {
+//     return res.status(400).json({ success: false, message: 'Неверный ID новости' });
+//   }
+
+//   const filePath = path.join(__dirname, 'data-news.json'); // или где хранятся новости
+
+//   fs.readFile(filePath, 'utf8', (err, data) => {
+//     if (err) {
+//       console.error('Ошибка чтения файла:', err);
+//       return res.status(500).json({ success: false, message: 'Не удалось прочитать данные' });
+//     }
+
+//     let newsList;
+//     try {
+//       newsList = JSON.parse(data);
+//     } catch (e) {
+//       return res.status(500).json({ success: false, message: 'Ошибка парсинга JSON' });
+//     }
+
+//     if (!newsList[id]) {
+//       return res.status(404).json({ success: false, message: 'Новость не найдена' });
+//     }
+
+//     // Удаляем новость по индексу
+//     newsList.splice(id, 1);
+
+//     // Сохраняем обратно
+//     fs.writeFile(filePath, JSON.stringify(newsList, null, 2), 'utf8', (err) => {
+//       if (err) {
+//         console.error('Ошибка записи:', err);
+//         return res.status(500).json({ success: false, message: 'Не удалось сохранить' });
+//       }
+//       res.json({ success: true, message: 'Новость удалена' });
+//     });
+//   });
+// });
+
+app.post('/delete-news', (req, res) => {
+  const { id } = req.body;
+
+  if (!id) {
+    return res.status(400).json({ success: false, message: 'ID не указан' });
+  }
+
+  db.run('DELETE FROM news WHERE id = ?', [id], function (err) {
+    if (err) {
+      console.error('Ошибка БД:', err);
+      return res.status(500).json({ success: false, message: 'Ошибка базы данных' });
+    }
+    if (this.changes === 0) {
+      return res.status(404).json({ success: false, message: 'Новость не найдена' });
+    }
+    res.json({ success: true, message: 'Новость удалена' });
+  });
+});
 
 //ТАБЛИЦА НОВОСТЕЙ
 db.serialize(() => {
@@ -291,6 +372,23 @@ app.get('/data-news', (req, res) => {
     res.json(rows)
   })
 })
+
+// app.post('/delete', (req, res) => {
+//     const { path: filePath } = req.body;
+//     if (!filePath) {
+//         return res.json({ success: false, message: 'Путь не указан' });
+//     }
+
+//     const fullPath = path.join(__dirname, filePath); // или путь к папке с файлами
+
+//     fs.unlink(fullPath, err => {
+//         if (err) {
+//             console.error('Ошибка удаления:', err);
+//             return res.json({ success: false, message: 'Не удалось удалить файл' });
+//         }
+//         res.json({ success: true, message: 'Файл удалён' });
+//     });
+// });
 
 // ОТПРАВКА С ФОРМЫ НА СЕРВЕР
 app.listen(PORT, () => {

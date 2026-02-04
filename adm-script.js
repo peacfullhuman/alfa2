@@ -96,24 +96,162 @@ fetch('/files')
         for (const [folder, imgs] of Object.entries(grouped)) {
             html += `<h3>📁 ${folder || 'корень'}</h3>`;
             html += `<div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;">`;
+
             imgs.forEach(img => {
                 const filename = img.split('/').pop();
                 html += `
-                <div style="text-align: center; max-width: 150px;">
-                <img src="${img}" width="120" alt="${filename}" style="border-radius: 6px;">
-                <div style="font-size: 0.8em; color: #555; margin-top: 4px;">${filename}</div>
+                <div style="text-align: center; max-width: 150px; position: relative;">
+                    <img src="${img}" width="120" alt="${filename}" style="border-radius: 6px; transition: filter 0.2s;">
+                    
+                    <!-- Кнопка удаления -->
+                    <button 
+                        class="delete-img-btn" 
+                        data-path="${img}"
+                        style="
+                            position: absolute; 
+                            top: 5px; 
+                            right: 5px; 
+                            background: #ff3333; 
+                            color: white; 
+                            border: none; 
+                            width: 20px; 
+                            height: 20px; 
+                            border-radius: 50%; 
+                            font-size: 12px; 
+                            cursor: pointer;
+                            
+                            transition: opacity 0.2s;
+                        "
+                        title="Удалить фото">
+                        ✕
+                    </button>
+                    
+                    <div style="font-size: 0.8em; color: #555; margin-top: 4px; word-break: break-word;">${filename}</div>
                 </div>
                 `;
             });
+
+
             html += `</div>`;
         }
 
         container.innerHTML = html;
+
+        // Добавляем обработчики для всех кнопок удаления
+        container.querySelectorAll('.delete-img-btn').forEach(button => {
+            const imgPath = button.dataset.path;
+
+            // Показывать кнопку при наведении на карточку
+            const card = button.parentElement;
+            // card.addEventListener('mouseenter', () => button.style.opacity = '1');
+            // card.addEventListener('mouseleave', () => button.style.opacity = '0');
+
+            // Клик по кнопке удаления
+            button.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (!confirm(`Удалить фото "${imgPath.split('/').pop()}"?`)) return;
+
+                fetch('/delete', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ path: imgPath })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Плавное удаление
+                        const card = button.closest('div[style*="text-align: center"]');
+                        card.style.transition = 'opacity 0.3s';
+                        card.style.opacity = '0';
+                        setTimeout(() => card.remove(), 300);
+
+                        // Если в папке больше нет фото — можно удалить и заголовок, но это опционально
+                        alert('Фото удалено');
+                    } else {
+                        alert('Ошибка: ' + data.message);
+                    }
+                })
+                .catch(err => {
+                    console.error('Ошибка:', err);
+                    alert('Не удалось удалить файл');
+                });
+            });
+        });
+
     })
     .catch(err => {
         console.error('Ошибка:', err);
         container.innerHTML = '<p>❌ Не удалось загрузить файлы</p>';
     });
+
+// список всех новостей
+fetch('/data-news')
+  .then(response => response.json())
+  .then(newsList => {
+    console.log(123)
+    const container = document.querySelector('.news-list');
+
+    for (let n = Object.keys(newsList).length-1; n >= 0; n--){
+      const newsItem = document.createElement('div');
+      newsItem.classList.add('new-adm');
+
+
+        newsItem.innerHTML = `
+        <div class="new-title-adm">
+            <h3>${newsList[n].title}</h3>
+            <button 
+            class="delete-news-btn" 
+            data-id="${newsList[n]._id || newsList[n].id}"
+            data-title="${newsList[n].title}"
+            style="background: #ff3333; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">
+            &times; Удалить
+            </button>
+        </div>
+        `;
+
+        container.appendChild(newsItem);
+
+      // Находим кнопку внутри только что добавленного элемента
+        const deleteBtn = newsItem.querySelector('.delete-news-btn');
+
+        deleteBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+
+            // Читаем данные прямо из кнопки
+            const newsId = deleteBtn.dataset.id;
+            const title = deleteBtn.dataset.title;
+
+            if (!confirm(`Удалить новость: "${title}"?`)) return;
+
+            fetch('/delete-news', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: newsId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                newsItem.style.opacity = '0';
+                setTimeout(() => newsItem.remove(), 300);
+                alert('Новость удалена');
+                } else {
+                alert('Ошибка: ' + data.message);
+                }
+            })
+            .catch(err => {
+                console.error('Ошибка:', err);
+                alert('Не удалось удалить');
+            });
+        });
+
+    }
+
+  })
+  .catch(err => {
+    console.error('Ошибка:', err);
+    document.querySelector('.news-list').innerHTML = '<p>Не удалось загрузить новости</p>';
+});
+
 
 
 app.post('/add-news', (req, res) => {
@@ -142,3 +280,4 @@ app.post('/add-news', (req, res) => {
     `);
   });
 });
+
